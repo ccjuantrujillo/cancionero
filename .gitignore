@@ -1,0 +1,8 @@
+node_modules
+nbproject/
+vendor/
+sql/
+.buildpath
+.project
+.settings/
+.env
