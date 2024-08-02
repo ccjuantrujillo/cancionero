@@ -1,4 +1,4 @@
-# Configuración del proyecto cancionero
+# Configuración del proyecto 
 
 ## Requisitos
 ```
@@ -7,11 +7,7 @@
 - Laravel 7.30 
 - Nodejs version 14 
 ```
-## Verificamos tengamos instalada la versión 7.x de php
 
-```
-php -v
-```
 ## Creamos un proyecto en laravel 7
 ```
 composer create-project laravel/laravel:^7.0 example-cancionero 
