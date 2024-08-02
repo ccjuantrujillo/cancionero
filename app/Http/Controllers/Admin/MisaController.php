@@ -27,11 +27,11 @@ class MisaController extends Controller
         $usuariomisas = UsuarioMisa::with([
                             'misa' => function ($query) {
                                 $query->select('MISAP_Codigo', 'MISAC_Descripcion', 'MISAC_Fecha')
-                                    ->orderBy('MISAC_Fecha','desc');
+                                    ->orderBy('MISAC_Fecha','asc');
                             }
                         ])
                         ->whereHas('misa', function ($query) {
-                            return $query->orderBy('MISAC_Fecha', 'desc');
+                            return $query->orderBy('MISAC_Fecha', 'asc');
                         })
                         ->where('id', $usuario_id)
                         ->get();
@@ -44,11 +44,13 @@ class MisaController extends Controller
     {
 
         $compania_id = session('compania') ?? getCompaniaDefecto()->COMPP_Codigo;
+
         $misa  = new Misa();     
+
         $ritos = Rito::orderBy('RITOC_Orden')->get();
         
         $canciones = Categoriacancion::join('cancion','categoriacancion.CANCP_Codigo','=','cancion.CANCP_Codigo')
-                ->select('cancion.*','categoriacancion.CATEGCANCC_Orden')
+                ->select('cancion.*','categoriacancion.*')
                 ->where('categoriacancion.COMPP_Codigo', $compania_id)
                 ->orderBy('categoriacancion.CATEGCANCC_Orden','asc')
                 ->get();
@@ -57,6 +59,7 @@ class MisaController extends Controller
             'canciones'  => $canciones,
             'misa'       => $misa,
             'ritos'      => $ritos,
+            'misa_canciones' => []
         ]);
     }
 
@@ -75,32 +78,37 @@ class MisaController extends Controller
         $fecha       = $request->fecha;
         $tema        = $request->tema;
         
-        //Save headers
+        //Save misa
         $misa = Misa::create([
-            "MISAC_Descripcion" => $request->descripcion,
-            "MISAC_Fecha"       => $request->fecha,
-            "MISAC_Tema"        => $request->tema
+            "MISAC_Descripcion" => $descripcion,
+            "MISAC_Fecha"       => $fecha,
+            "MISAC_Tema"        => $tema
+        ]);
+
+        // Save UsuarioMisa
+        UsuarioMisa::create([
+            "id"           => Auth::id(),
+            "MISAP_Codigo" => $misa->MISAP_Codigo
         ]);
         
-        //Save details -- ACA FALTA
-        foreach($_POST as $indice => $canciones){
-            if(strpos($indice, "_")){
-                $pos = strpos($indice, "_");
-                $categoria_id = substr($indice,$pos+1);
-                foreach($canciones as $cancion_id){
-                    if($cancion_id!=""){
-                        Misacancion::create([
-                            "CANCP_Codigo"  => $cancion_id,
-                            "MISAP_Codigo"  => $misa->MISAP_Codigo,
-                            "CATEGP_Codigo" => $categoria_id
-                        ]);                          
-                    }
+        //Save MisaCancion
+        $ritos = $request->except(['_token', 'descripcion', 'tema', 'fecha']);
+        foreach ($ritos as $indice => $categoriacanciones) {
+            $rito_id = substr($indice, strpos($indice, "_") + 1);
+            foreach($categoriacanciones as $categoriacancion_id){
+                if($categoriacancion_id != ""){
+                    Misacancion::create([
+                        "CATEGCANCP_Codigo" => $categoriacancion_id,
+                        "MISAP_Codigo"      => $misa->MISAP_Codigo,
+                        "RITOP_Codigo"      => $rito_id
+                    ]);                          
                 }
             }
         }
         
         //Redirect
-        return Redirect::to("/misa");
+        return redirect()->route('misa.index');
+        
     }
 
     public function edit($id){
@@ -111,15 +119,16 @@ class MisaController extends Controller
 
         $misa_canciones = Misacancion::with([
                                 'categoria_cancion' => function ($query) {
-                                    $query->select('CATEGCANCP_Codigo', 'CANCP_Codigo');
+                                    $query->select('CATEGCANCP_Codigo', 'CANCP_Codigo', 'CATEGCANCC_Orden')
+                                        ->with([
+                                            'cancion' => function ($query) {
+                                                $query->select('CANCP_Codigo', 'CANCC_Titulo');
+                                            }
+                                        ]);
                                 }
                             ])
                             ->where('MISAP_Codigo', $id)
                             ->get();
-        
-        foreach($misa_canciones as $value){
-            $arrMisacanciones[$value->RITOP_Codigo][] = $value->categoria_cancion->CANCP_Codigo;
-        }
 
         $ritos = Rito::orderBy('RITOC_Orden')->get();
         
@@ -133,7 +142,7 @@ class MisaController extends Controller
         return view("admin.misa.edit", [
             'misa'             => $misa,
             'canciones'        => $canciones,
-            'arrmisacanciones' => $arrMisacanciones,
+            'misa_canciones'   => $misa_canciones,
             'ritos'            => $ritos,
         ]);
     }

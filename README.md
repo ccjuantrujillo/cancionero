@@ -2,9 +2,9 @@
 
 ## Requisitos
 ```
-- Php 7.3.17 
-- MariaDB 10.3.39 
-- Laravel 7.30 
+- Php 7.4.29
+- MariaDB 10.5.21
+- Laravel 7.30.0
 - Nodejs version 14 
 ```
 

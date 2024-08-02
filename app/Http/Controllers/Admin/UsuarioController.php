@@ -110,7 +110,7 @@ class UsuarioController extends Controller
             Compania::where('COMPC_FlagEstado', 1)->update(["COMPC_FlagDefecto"  => 0]);
             Compania::where('COMPP_Codigo', $request->compania)->update(["COMPC_FlagDefecto" => 1]);
 
-            return redirect()->route($request->ruta_actual);
+            return Redirect::to($request->ruta_actual);
         }
         else {
             return Redirect::to('/');

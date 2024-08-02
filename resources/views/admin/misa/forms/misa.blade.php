@@ -35,59 +35,66 @@
 @foreach( $ritos as $valuecat )
 
     <!-- Muestro todas las canciones para la categoria seleccionada. -->
-    @if(isset($arrmisacanciones[$valuecat->RITOP_Codigo]) )
+    @if(count($misa_canciones) > 0 )
     
       @php $categoria_ant = 0;@endphp
 
-      @foreach($arrmisacanciones[$valuecat->RITOP_Codigo] as $cancion_id)  
+      @foreach($misa_canciones as $misa_cancion)  
+
+        @if ($misa_cancion->RITOP_Codigo == $valuecat->RITOP_Codigo)
         
-        <div class="form-group row">
-            
-            <!-- Oculta Nombre de categoria -->
-            @if($categoria_ant != $valuecat->RITOP_Codigo)
-                <label class="col-sm-2">{{ strtoupper($valuecat->RITOC_DescripcionCorta) }}: </label>
-            @else
-                <label class="col-sm-2">&nbsp;</label>
-            @endif
-             
-             <div class="col-sm-10 row">
-                 <div class="col-11 canciones_{{ $valuecat->RITOP_Codigo }}">
+            <div class="form-group row">
+                
+                <!-- Oculta Nombre de categoria -->
+                @if($categoria_ant != $valuecat->RITOP_Codigo)
+                    <label class="col-sm-2">{{ strtoupper($valuecat->RITOC_DescripcionCorta) }}: </label>
+                @else
+                    <label class="col-sm-2">&nbsp;</label>
+                @endif
 
-                     <!-- Combo de canciones -->
-                     <select class="form-control form-control-sm" name="categ_{{ strtoupper($valuecat->RITOP_Codigo) }}[]">
-                         <option value="">::Seleccione::</option>
-                         @php $catego_ini = 0;@endphp
+                
+                <div class="col-sm-10 row">
+                    <div class="col-11 canciones_{{ $valuecat->RITOP_Codigo }}">
 
-                         @foreach( $canciones as $indice => $value )
-                             @php $catego = $value->RITOP_Codigo;@endphp
-                             @if($catego != $catego_ini)
-                                 @if($indice == 0)
-                                     <optgroup label="{{ $value->CATEGC_DescripcionCorta }}">
-                                 @else
-                                     </optgroup><optgroup label="{{ $value->CATEGC_DescripcionCorta }}">
-                                 @endif
-                             @endif
+                        <!-- Combo de canciones -->
+                        <select class="form-control form-control-sm" name="categ_{{ strtoupper($valuecat->RITOP_Codigo) }}[]">
 
-                             @php $catego_ini = $catego;@endphp
-                             <option value="{{ $value->CANCP_Codigo }}" 
-                                @if ($value->CANCP_Codigo == $cancion_id)
+                            <option value="">::Seleccione::</option>
+
+                            @php $existe_cancion = false; @endphp
+
+                            @foreach( $canciones as $indice => $value )
+                                <option value="{{ $value->CANCP_Codigo }}" 
+                                @if ($value->CATEGCANCP_Codigo == $misa_cancion->categoria_cancion->CATEGCANCP_Codigo)
                                     {{ "selected='selected'" }} 
+                                    @php $existe_cancion = true; @endphp
                                 @endif                                  
-                                 > {{ $value->CATEGCANCC_Orden .' - '. $value->CANCC_Titulo }}
-                             </option>
+                                    > {{ $value->CATEGCANCC_Orden .' - '. $value->CANCC_Titulo }}
+                                </option>
+                            @endforeach
 
-                         @endforeach
-                     </select>      
+                            @if (!$existe_cancion)
+                                <option value="{{ $misa_cancion->categoria_cancion->CATEGCANCP_Codigo }}" selected='selected'
+                                    >{{  $misa_cancion->categoria_cancion->CATEGCANCC_Orden .' - '. $misa_cancion->categoria_cancion->cancion->CANCC_Titulo }}
+                                </option>
+                            @endif
 
-                 </div>
-                 <div class="col-1">
-                     <a href='#' id="{{ $valuecat->RITOP_Codigo }}" class="agregar_cancion"><b><font color="#FF0000">(+)</font></b></a>
-                 </div>
-             </div>
-         </div>  
+                        </select>      
+
+                    </div>
+
+                    <div class="col-1">
+                        <a href='#' id="{{ $valuecat->RITOP_Codigo }}" class="agregar_cancion"><b><font color="#FF0000">(+)</font></b></a>
+                    </div>
+                    
+                </div>
+                
+            </div>  
       
-         <!-- Asigna valoa a la variable categoria_ant -->
-         @php $categoria_ant = $valuecat->RITOP_Codigo;@endphp
+            <!-- Asigna valoa a la variable categoria_ant -->
+            @php $categoria_ant = $valuecat->RITOP_Codigo;@endphp
+
+        @endif
       
       @endforeach
       
@@ -102,7 +109,7 @@
                     <select class="form-control form-control-sm" name="categ_{{ strtoupper($valuecat->RITOP_Codigo) }}[]">
                         <option value="">::Seleccione::</option>
                         @foreach( $canciones as $indice => $value )
-                            <option value="{{ $value->CANCP_Codigo }}">{{ $value->CATEGCANCC_Orden .' - '. $value->CANCC_Titulo }}</option>
+                            <option value="{{ $value->CATEGCANCP_Codigo }}">{{ $value->CATEGCANCC_Orden .' - '. $value->CANCC_Titulo }}</option>
                         @endforeach
                     </select>      
 

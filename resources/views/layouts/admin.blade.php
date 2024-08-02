@@ -31,7 +31,7 @@
     <!-- SEARCH FORM -->
     {!!Form::open(['route'=>'selecciona_compania.user','method'=>'POST','class'=>'form-inline ml-3'])!!}
     <div class="input-group input-group-sm">
-        <input type="hidden" name="ruta_actual" id="ruta_actual" value="{{ Route::currentRouteName() }}">
+        <input type="hidden" name="ruta_actual" id="ruta_actual" value="{{ Request::path() }}">
         <select name="compania" id="compania" class="form-control form-control-sm" onchange="submit();">
           <?php 
           $companias = getCompanias();
