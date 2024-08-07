@@ -33,22 +33,22 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach($usuariomisas as $item => $usuariomisa)
-                <tr class="text-center">
-                  <th scope="row">{{ $item+1 }}</th>
-                  <td class="text-left">{{ $usuariomisa->misa->MISAC_Descripcion }}</td>
-                  <td class="text-center">{{ $usuariomisa->misa->MISAC_Fecha->format('d/m/Y') }}</td>
-                  <td>{!!link_to_route('misa.edit', $title = 'Editar', $parameters = $usuariomisa->misa->MISAP_Codigo, $attributes = ['class'=>'btn btn-info'])!!}</td>
-                  <td>
-                    {!!Form::open(['route'=>['misa.delete',$usuariomisa->misa->MISAP_Codigo],'method'=>'DELETE'])!!}
-                        {{ csrf_field() }}
-                        {{ method_field('DELETE') }}
-                        {!!Form::submit('Eliminar',
-                              ['class'=>'btn btn-danger'])
-                        !!}
-                    {!!Form::close()!!}   
-                   </td>
-                </tr>
+                @foreach($misas as $item => $misa)
+                  <tr class="text-center">
+                    <th scope="row">{{ $item+1 }}</th>
+                    <td class="text-left"> {{ $misa->MISAC_Descripcion }} </td>
+                    <td class="text-center">{{ $misa->MISAC_Fecha->format('d/m/Y') }}</td>
+                    <td>{!!link_to_route('misa.edit', $title = 'Editar', $parameters = $misa->MISAP_Codigo, $attributes = ['class'=>'btn btn-info'])!!}</td>
+                    <td>
+                      {!!Form::open(['route'=>['misa.destroy',$misa->MISAP_Codigo],'method'=>'DELETE'])!!}
+                          {{ csrf_field() }}
+                          {{ method_field('DELETE') }}
+                          {!!Form::submit('Eliminar',
+                                ['class'=>'btn btn-danger'])
+                          !!}
+                      {!!Form::close()!!}   
+                    </td>
+                  </tr>
                 @endforeach
               </tbody>
             </table>

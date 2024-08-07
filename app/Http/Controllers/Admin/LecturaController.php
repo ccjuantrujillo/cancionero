@@ -48,37 +48,43 @@ class LecturaController extends Controller
     public function store (Request $request)
     {
 
-        $request->validate([
-            'misa' => 'required',
-        ]);
+        try {
 
-        $misa                  = $request->misa;
+            DB::beginTransaction();
 
-        $descripcion_lectura_1 = htmlentities($request->descripcion_lectura_1);
-        $descripcion_lectura_2 = htmlentities($request->descripcion_lectura_2);
-        $descripcion_evangelio = htmlentities($request->descripcion_evangelio);
-        $descripcion_salmo     = htmlentities($request->descripcion_salmo);
+            $request->validate( ['misa' => 'required',] );
+    
+            $descripcion_lectura_1 = htmlentities($request->descripcion_lectura_1);
+            $descripcion_lectura_2 = htmlentities($request->descripcion_lectura_2);
+            $descripcion_evangelio = htmlentities($request->descripcion_evangelio);
+            $descripcion_salmo     = htmlentities($request->descripcion_salmo);
+    
+            $misa                  = $request->misa;
+            $titulo_lectura_1      = $request->titulo_lectura_1;
+            $titulo_lectura_2      = $request->titulo_lectura_2;
+            $titulo_evangelio      = $request->titulo_evangelio;        
+            $titulo_salmo          = $request->titulo_salmo;
 
-        $titulo_lectura_1      = $request->titulo_lectura_1;
-        $titulo_lectura_2      = $request->titulo_lectura_2;
-        $titulo_evangelio      = $request->titulo_evangelio;        
-        $titulo_salmo          = $request->titulo_salmo;
+            $data = [
+                ["MISAP_Codigo" => $misa, "TIPOLECP_Codigo" => 1, "LECTC_Titulo"=> $titulo_lectura_1, "LECTC_Descripcion" => $descripcion_lectura_1],
+                ["MISAP_Codigo" => $misa, "TIPOLECP_Codigo" => 2, "LECTC_Titulo"=> $titulo_salmo, "LECTC_Descripcion" => $descripcion_salmo],
+                ["MISAP_Codigo" => $misa, "TIPOLECP_Codigo" => 3, "LECTC_Titulo"=> $titulo_lectura_2, "LECTC_Descripcion" => $descripcion_lectura_2],
+                ["MISAP_Codigo" => $misa, "TIPOLECP_Codigo" => 4, "LECTC_Titulo"=> $titulo_evangelio, "LECTC_Descripcion" => $descripcion_evangelio],
+            ];
+    
+            Lectura::insert($data);
+    
+            Misa::where('MISAP_Codigo', $misa)->update( ["MISAC_FlagLecturas" => 1] );
 
-        $data = [
-            ["MISAP_Codigo" => $misa, "TIPOLECP_Codigo" => 1, "LECTC_Titulo"=> $titulo_lectura_1, "LECTC_Descripcion" => $descripcion_lectura_1],
-            ["MISAP_Codigo" => $misa, "TIPOLECP_Codigo" => 2, "LECTC_Titulo"=> $titulo_salmo, "LECTC_Descripcion" => $descripcion_salmo],
-            ["MISAP_Codigo" => $misa, "TIPOLECP_Codigo" => 3, "LECTC_Titulo"=> $titulo_lectura_2, "LECTC_Descripcion" => $descripcion_lectura_2],
-            ["MISAP_Codigo" => $misa, "TIPOLECP_Codigo" => 4, "LECTC_Titulo"=> $titulo_evangelio, "LECTC_Descripcion" => $descripcion_evangelio],
-        ];
+            DB::commit();
 
-        Lectura::insert($data);
-
-        Misa::where('MISAP_Codigo', $misa)->update([
-            "MISAC_FlagLecturas" => 1
-        ]);
+        }
+        catch (\Exception $e) {
+            DB::rollback();
+        }
 
         //Redirect
-        return Redirect::to("/lectura/listar-lecturas");        
+        return redirect()->route('lectura.index');  
 
     }
 
@@ -98,32 +104,53 @@ class LecturaController extends Controller
 
     public function update (Request $request, $id)
     {
-        Lectura::where(["MISAP_Codigo" => $id, "TIPOLECP_Codigo" => 1])->update([
-            "LECTC_Titulo"      => $request->titulo_lectura_1,
-            "LECTC_Descripcion" => htmlentities($request->descripcion_lectura_1),
-        ]);
 
-        Lectura::where(["MISAP_Codigo" => $id, "TIPOLECP_Codigo" => 2])->update([
-            "LECTC_Titulo"      => $request->titulo_salmo,
-            "LECTC_Descripcion" => htmlentities($request->descripcion_salmo),
-        ]);
-        
-        Lectura::where(["MISAP_Codigo" => $id, "TIPOLECP_Codigo" => 3])->update([
-            "LECTC_Titulo"      => $request->titulo_lectura_2,
-            "LECTC_Descripcion" => htmlentities($request->descripcion_lectura_2),
-        ]);
-        
-        Lectura::where(["MISAP_Codigo" => $id, "TIPOLECP_Codigo" => 4])->update([
-            "LECTC_Titulo"      => $request->titulo_evangelio,
-            "LECTC_Descripcion" => htmlentities($request->descripcion_evangelio),
-        ]);
-        
-        return Redirect::to("/lectura/listar-lecturas");
+        try {
+
+            DB::beginTransaction();
+
+            Lectura::where(["MISAP_Codigo" => $id, "TIPOLECP_Codigo" => 1])->update([
+                "LECTC_Titulo"      => $request->titulo_lectura_1,
+                "LECTC_Descripcion" => htmlentities($request->descripcion_lectura_1),
+            ]);
+    
+            Lectura::where(["MISAP_Codigo" => $id, "TIPOLECP_Codigo" => 2])->update([
+                "LECTC_Titulo"      => $request->titulo_salmo,
+                "LECTC_Descripcion" => htmlentities($request->descripcion_salmo),
+            ]);
+            
+            Lectura::where(["MISAP_Codigo" => $id, "TIPOLECP_Codigo" => 3])->update([
+                "LECTC_Titulo"      => $request->titulo_lectura_2,
+                "LECTC_Descripcion" => htmlentities($request->descripcion_lectura_2),
+            ]);
+            
+            Lectura::where(["MISAP_Codigo" => $id, "TIPOLECP_Codigo" => 4])->update([
+                "LECTC_Titulo"      => $request->titulo_evangelio,
+                "LECTC_Descripcion" => htmlentities($request->descripcion_evangelio),
+            ]);
+
+            DB::commit();
+
+        }
+        catch (\Exception $e) {
+            DB::rollback();
+        }
+
+        return redirect()->route('lectura.index');
 
     }
 
-    public function destroy ()
+    public function destroy ($id)
     {
+        try {
+            DB::beginTransaction();
 
+            DB::commit();
+        }
+        catch (\Exception $e) {
+            DB::rollback();
+        }
+
+        return redirect()->route('lectura.index');
     }
 }

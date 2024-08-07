@@ -10,8 +10,8 @@ $(function(){
         });
         
         $.ajax({
-                type:"POST",
-                url:"/wp-admin/cancion/list",
+                type : "POST",
+                url  : "/cancion/list",
                 //url:"/cancion/list",
                 data:"{}",
                 contentType:"application/json",
@@ -34,7 +34,7 @@ $(function(){
                         
                         catego_ini = catego;
                         
-                        option+= "<option value='"+value.CANCP_Codigo+"'>"+value.CATEGCANCC_Orden+" - " + value.CANCC_Titulo + "</option>";
+                        option+= "<option value='"+value.CATEGCANCP_Codigo+"'>"+value.CATEGCANCC_Orden+" - " + value.CANCC_Titulo + "</option>";
                     });
                     selector  = "<select class='form-control form-control-sm' name='categ_"+id+"[]'>"+option+"</select>";					
                     $(".canciones_"+id).append(selector);			
@@ -43,17 +43,10 @@ $(function(){
                         alert('Se producjo un error');
                 }
         });
-			
-        /*$(".clasecaja").on("keypress",function(e) {
-                    alert("hola");
-            });	
-
-            $(".btn-primary").click(function(){
-                    $("#frmMisa").submit();
-            });*/		
+					
     });
 
-    function getCancion(pos){
+    /*function getCancion(pos){
             switch(pos){
                     case '1':
                             nombre = "entrada[]";break;
@@ -81,6 +74,6 @@ $(function(){
                             nombre = "cancion[]";break;
             }
             return nombre;
-    }	
+    }	*/
 
 });

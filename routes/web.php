@@ -23,6 +23,7 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 // Cancion Admin
 Route::prefix('cancion')->name('cancion.')->group(function () {
     Route::get('/listar-canciones', [CancionController::class, 'index'])->name('index');
+    Route::post('/list', [CancionController::class, 'list'])->name('list');
     Route::get('/crear-cancion', [CancionController::class, 'create'])->name('create');
     Route::get('/editar-cancion/{cancion_id?}/edit', [CancionController::class, 'edit'])->name('edit');
     Route::get('/editar-cancion/{cancion_id?}', [CancionController::class, 'show'])->name('show');
@@ -50,9 +51,9 @@ Route::prefix('misa')->name('misa.')->group(function () {
     Route::get('/crear-misa', [MisaController::class, 'create'])->name('create');
     Route::get('/editar-misa/{misa_id?}', [MisaController::class, 'edit'])->name('edit');
     Route::post('/guardar-misa', [MisaController::class, 'store'])->name('store');
-    Route::post('/actualizar-misa', [MisaController::class, 'update'])->name('update');
+    Route::patch('/actualizar-misa/{misa_id}', [MisaController::class, 'update'])->name('update');
     Route::post('/buscar-misas', [MisaController::class, 'search'])->name('search');
-    Route::post('/eliminar-misa', [MisaController::class, 'delete'])->name('delete');
+    Route::delete('/eliminar-misa/{misa_id}', [MisaController::class, 'destroy'])->name('destroy');
 });
 
 // Lectura Admin

@@ -32,14 +32,16 @@
 <div><hr></div>
 
 <!--Detalle de cantos por misa-->
+@php $categoria_ant = 0; @endphp
+
 @foreach( $ritos as $valuecat )
 
     <!-- Muestro todas las canciones para la categoria seleccionada. -->
-    @if(count($misa_canciones) > 0 )
-    
-      @php $categoria_ant = 0;@endphp
+    @php $canciones_selec = count($misa_canciones) > 0 ? $misa_canciones->pluck('RITOP_Codigo') : collect([]) ;  @endphp
 
-      @foreach($misa_canciones as $misa_cancion)  
+    @if( $canciones_selec->contains($valuecat->RITOP_Codigo) )
+
+    @foreach($misa_canciones as $misa_cancion)  
 
         @if ($misa_cancion->RITOP_Codigo == $valuecat->RITOP_Codigo)
         
@@ -64,7 +66,7 @@
                             @php $existe_cancion = false; @endphp
 
                             @foreach( $canciones as $indice => $value )
-                                <option value="{{ $value->CANCP_Codigo }}" 
+                                <option value="{{ $value->CATEGCANCP_Codigo }}" 
                                 @if ($value->CATEGCANCP_Codigo == $misa_cancion->categoria_cancion->CATEGCANCP_Codigo)
                                     {{ "selected='selected'" }} 
                                     @php $existe_cancion = true; @endphp
@@ -90,15 +92,16 @@
                 </div>
                 
             </div>  
-      
-            <!-- Asigna valoa a la variable categoria_ant -->
-            @php $categoria_ant = $valuecat->RITOP_Codigo;@endphp
+    
+            <!-- Asigna valor a la variable categoria_ant -->
+            @php $categoria_ant = $valuecat->RITOP_Codigo; @endphp
 
         @endif
-      
-      @endforeach
-      
+    
+    @endforeach
+    
     @else
+
         <!-- No existen canciones para la categoria -->
         <div class="form-group row">
             <label class="col-sm-2">{{ strtoupper($valuecat->RITOC_DescripcionCorta) }}: </label>

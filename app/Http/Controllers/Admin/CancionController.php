@@ -32,7 +32,7 @@ class CancionController extends Controller
 
         $canciones = Categoriacancion::join('cancion','categoriacancion.CANCP_Codigo','=','cancion.CANCP_Codigo')
                 ->join('categoria','categoria.CATEGP_Codigo','=','categoriacancion.CATEGP_Codigo')
-                ->select('cancion.*','categoriacancion.CATEGCANCC_Orden','categoriacancion.CATEGP_Codigo','categoria.CATEGC_DescripcionCorta')
+                ->select('cancion.*','categoriacancion.*','categoria.CATEGC_DescripcionCorta')
                 ->where('categoriacancion.COMPP_Codigo', $compania_id)
                 ->orderBy('categoriacancion.CATEGCANCC_Orden','asc')
                 ->get();

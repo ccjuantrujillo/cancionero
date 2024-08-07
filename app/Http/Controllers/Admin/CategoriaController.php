@@ -9,7 +9,7 @@ class CategoriaController extends Controller
 {
     public function index(Request $request)
     {
-        //dd(Session::all());
+
 		$compania_id = session('compania');
 		
         $categorias = Categoria::where('COMPP_Codigo',$compania_id)

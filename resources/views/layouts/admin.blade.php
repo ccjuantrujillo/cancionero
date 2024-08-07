@@ -58,8 +58,7 @@
       </li>
   
       <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i
-            class="fas fa-th-large"></i></a>
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fas fa-th-large"></i></a>
       </li>
 
     </ul>
@@ -67,6 +66,7 @@
 
    <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
+
     <!-- Brand Logo -->
     <a href="{{ route('misas') }}" class="brand-link" style="background-color: rgba(128,4,4,0.7)">
       <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
@@ -131,6 +131,7 @@
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
+       
     </div>
     <!-- /.sidebar -->
   </aside>
