@@ -15,7 +15,7 @@ Auth::routes();
 Route::get('/lecturas', [WebController::class, 'lecturas'])->name('lecturas');
 Route::get('/', [WebController::class, 'cancionero'])->name('cancionero');
 Route::get('/cancionero-detalle/{cancion_id?}', [WebController::class, 'cancionero_detalle'])->name('cancionero_detalle');
-Route::get('/cancionero-detalle-misa/{cancion_id?}/{compania_id?}', [WebController::class, 'cancionero_detalle_misa'])->name('cancionero_detalle_misa');
+Route::get('/cancionero-detalle-misa/{categoriacancion_id?}/{compania_id?}', [WebController::class, 'cancionero_detalle_misa'])->name('cancionero_detalle_misa');
 Route::get('/misas', [WebController::class, 'misas'])->name('misas');
 Route::get('/misa-detalle/{misa_id?}', [Webcontroller::class, 'misa_detalle'])->name('misa_detalle');
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');

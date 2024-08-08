@@ -23,7 +23,7 @@
 
         <div class='row'>
             <div class='col-lg col-sm col'>
-                <a href="/cancionero-detalle-misa/{{ $detalle->categoria_cancion->cancion->CANCP_Codigo }}/3">
+                <a href="{{ route('cancionero_detalle_misa', encrypt($detalle->CATEGCANCP_Codigo) ) }}">
                     {{ strtoupper($detalle->categoria_cancion->cancion->CANCC_Titulo ) }} 
                     ({{ $detalle->categoria_cancion->CATEGCANCC_Orden }})</a>
             </div>

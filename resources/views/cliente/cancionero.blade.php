@@ -17,7 +17,7 @@
 
       <div class="row">
           <div class="col-lg col-sm col">
-            <a href="/cancionero-detalle/{{ $cancion->CANCP_Codigo }}">{{ $cancion->CATEGCANCC_Orden. '. ' .$cancion->cancion->CANCC_Titulo }}</a>
+            <a href="{{ route('cancionero_detalle', encrypt($cancion->CANCP_Codigo)) }}"> {{ $cancion->CATEGCANCC_Orden. '. ' .$cancion->cancion->CANCC_Titulo }} </a>
           </div>
       </div>	
 

@@ -8,6 +8,7 @@
   <meta name="description" CONTENT="Cancionero Parroquial Misionero">
   <meta NAME="Distribution" CONTENT="Global">
   <meta NAME="Robots" CONTENT="All">
+
   <title>Cancionero Parroquial Misionero</title>
   <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
   <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
@@ -53,7 +54,7 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <form id="frmChangeSession">
-              <input type="hidden" name="ruta_actual" id="ruta_actual" value="{{ Route::currentRouteName() }}">
+              <input type="hidden" name="ruta_actual" id="ruta_actual" value="{{ Request::path() }}">
               <select name="compania" id="compania" class="form-control form-control-sm" onchange="submit();"> 
                 @foreach (getCompanias() as $compania)
                   <option value="{{ $compania->COMPP_Codigo }}"

@@ -25,3 +25,7 @@
 </div>
 
 @endsection
+
+@section('scripts')
+    <script src="{{asset('js/cliente/cancionero_detalle_misa.js')}}"></script>
+@endsection

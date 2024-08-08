@@ -15,7 +15,9 @@
 				<div class="row">
 					<div class="col-lg-2 col-md-2 col-5">{{ $usuariomisa->misa->MISAC_Fecha->format('d/m/Y') }}</a></div>
 					<div class="col-lg-10 col-md-10 col-7">
-						<a href="/misa-detalle/{{ $usuariomisa->misa->MISAP_Codigo }}">{{ $usuariomisa->misa->MISAC_Descripcion }}</a>
+						<a href="{{ route('misa_detalle', encrypt($usuariomisa->misa->MISAP_Codigo) ) }}"
+	
+							>{{ $usuariomisa->misa->MISAC_Descripcion }}</a>
 					</div>
 				</div>
 

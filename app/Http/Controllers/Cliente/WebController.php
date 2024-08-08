@@ -46,6 +46,7 @@ class WebController extends Controller
                                     $query->select('CATEGC_Descripcion', 'CATEGC_Orden', 'CATEGP_Codigo', 'CATEGC_DescripcionCorta');
                                 }
                             ])
+                            ->where('CATEGCANCC_FlagEstado', 1)
                             ->orderBy('CATEGCANCC_Orden', 'asc')
                             ->get();
 
@@ -55,12 +56,14 @@ class WebController extends Controller
 
     public function cancionero_detalle(Request $request)
     {
+        $cancion_id = decrypt($request->cancion_id);
+
         $cancion = Cancion::with([
                         'categoria_cancion' => function ($query) {
                             $query->select('CANCP_Codigo', 'CATEGP_Codigo', 'CATEGP_Codigo2', 'CATEGCANCC_Orden');
                         }
                     ])
-                    ->where('CANCP_Codigo', $request->cancion_id)
+                    ->where('CANCP_Codigo', $cancion_id)
                     ->first();
 
         return view('cliente.cancionero_detalle')
@@ -69,19 +72,15 @@ class WebController extends Controller
 
     public function cancionero_detalle_misa (Request $request)
     {
-        $compania_id = $request->compania_id;
 
-        $cancion = Cancion::with([
-                            'categoria_cancion_misa' => function ($query) use ($compania_id) {
-                                $query->select('CANCP_Codigo', 'CATEGP_Codigo', 'CATEGP_Codigo2', 'CATEGCANCC_Orden')
-                                        ->where('COMPP_Codigo', $compania_id);
-                            }
-                        ])
-                        ->where('CANCP_Codigo', $request->cancion_id)
-                        ->first();
+        $categoriacancion_id = decrypt($request->categoriacancion_id);
+
+        $categoriacancion = Categoriacancion::with(['cancion'])
+                            ->where('CATEGCANCP_Codigo', $categoriacancion_id)
+                            ->first();
 
         return view('cliente.cancionero_detalle_misa')
-            ->with('cancion', $cancion);
+            ->with('cancion', $categoriacancion->cancion);
     }
 
     public function misas ()
@@ -113,6 +112,8 @@ class WebController extends Controller
 
     public function misa_detalle (Request $request) 
     {
+        $misa_id = decrypt($request->misa_id);
+
         $misa = Misa::with([
                     'misa_cancion' => function ($query) {
                         $query->select('CATEGCANCP_Codigo', 'MISAP_Codigo', 'RITOP_Codigo')
@@ -135,17 +136,12 @@ class WebController extends Controller
                             ]);
                     }
                 ])
-                ->where('MISAP_Codigo', $request->misa_id)
+                ->where('MISAP_Codigo', $misa_id)
                 ->first();
 
         return view('cliente.misa_detalle')
                 ->with('misa', $misa);
     }
-
-    /*public function ingresar ()
-    {
-        return view('cliente.ingresar');
-    }*/
 
 }
 
