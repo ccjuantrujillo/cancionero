@@ -19,6 +19,8 @@ Route::get('/cancionero-detalle-misa/{categoriacancion_id?}/{compania_id?}', [We
 Route::get('/misas', [WebController::class, 'misas'])->name('misas');
 Route::get('/misa-detalle/{misa_id?}', [Webcontroller::class, 'misa_detalle'])->name('misa_detalle');
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/cambiar-cancion/{cancion_id?}', [WebController::class, 'cambiar_cancion'])->name('cambiar_cancion');
+Route::post('/cambiar-cancion-misa/{categoriacancion_id?}', [WebController::class, 'cambiar_cancion_misa'])->name('cambiar_cancion_misa');
 
 // Cancion Admin
 Route::prefix('cancion')->name('cancion.')->group(function () {

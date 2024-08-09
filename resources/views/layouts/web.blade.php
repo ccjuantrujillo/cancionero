@@ -62,7 +62,6 @@
                     >{{ $compania->COMPC_Descripcion }}</option>   
                 @endforeach
               </select>
-              <input type="hidden" name="caja_activa" id="caja_activa" value=""/>
             </form>
           </li>
         </ul>
