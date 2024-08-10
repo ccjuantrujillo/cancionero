@@ -91,8 +91,16 @@ class WebController extends Controller
 
     public function misas ()
     {
-        $usuario_id = Auth::id();
 
+        // Check Auth::User
+        if ( auth()->check() ) {
+            $usuario_id = Auth::id();
+        }
+        else {
+            $usuario_id = 1;
+        }
+
+        // Get Usuariomisas
         $usuariomisas = UsuarioMisa::with([
                             'misa' => function ($query) {
                                 $query->select('MISAP_Codigo', 'MISAC_Descripcion', 'MISAC_Fecha')

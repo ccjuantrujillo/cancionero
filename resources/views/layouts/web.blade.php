@@ -30,11 +30,11 @@
               <li class="nav-item {{ Route::is('cancionero', 'cancionero_detalle') ? 'active' : '' }}">
                   <a class="nav-link" href="{{ route('cancionero') }}">Cancionero</a>
               </li>	
-              @if(getUserData()->usuario_id != 0)
+              {{-- @if(getUserData()->usuario_id != 0) --}}
                 <li class="nav-item {{ Route::is('misas', 'misa_detalle') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('misas') }}">Misas</a>
                 </li>
-              @endif
+              {{-- @endif --}}
               <li class="nav-item {{ Route::is('login') ? 'active' : '' }}">
                   <a class="nav-link" href="{{ route('login') }}">Ingresar</a>
               </li>              
