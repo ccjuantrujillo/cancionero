@@ -44,9 +44,11 @@
     <div class="card my-4">
       <h5 class="card-header">Misas recientes </h5>
       <div class="card-body">
-        <ul class="list-unstyle mb-0">
-        <li><a href="#">Misa 1</a></li>
-        </ul>
+        @foreach ($five_misas as $misa)
+          <ul class="list-unstyle mb-0">
+            <li><a href=" {{ route('misa_detalle', encrypt( $misa->MISAP_Codigo )) }} " > {{ $misa->MISAC_Descripcion }} </a></li>
+          </ul>
+        @endforeach
       </div>
     </div>
 
@@ -55,19 +57,15 @@
       <div class="card-body">
         <ul class="list-unstyle mb-0">
         <li><a href="#">Santo Rosario</a></li>
-        <li><a href="#">Blog</a></li>
         </ul>
       </div>
     </div>
 
     <div class="card my-4">
-      <h5 class="card-header">Formacion</h5>
+      <h5 class="card-header">Acerca de mi</h5>
       <div class="card-body">
-        <ul class="list-unstyle mb-0">
-        <li><a href="#">Fundamentos de la fe</a></li>
-          <li><a href="#">La oraci&oacute;n</a> </li>
-        </ul>
-      </div>
+        La Capilla Santa Rosa tuvo sus origenes en la epoca de los yanaconas del Ex Fundo Santa Rosa..... <a href="#">Ver mas</a> </div>
+      </div>        
     </div>
 
   </div>

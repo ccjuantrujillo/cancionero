@@ -5,6 +5,7 @@ use App\Models\Misa;
 use App\Models\Lectura;
 use App\Models\UsuarioMisa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -31,6 +32,10 @@ class LecturaController extends Controller
                         })
                         ->where('id', $usuario_id)
                         ->get();
+
+        $usuariomisas = $usuariomisas->sortByDesc(function ($query) {
+            return $query->misa->MISAC_Fecha;
+        });
                         
         return view('admin.lectura.index')
                 ->with('usuariomisas', $usuariomisas);

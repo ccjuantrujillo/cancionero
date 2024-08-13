@@ -10,6 +10,7 @@ use App\Models\UsuarioMisa;
 use Illuminate\Http\Request;
 use App\Models\Categoriacancion;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -195,6 +196,7 @@ class MisaController extends Controller
         }
         catch (\Exception $e) {
             DB::rollback();
+            Log::error('Update Misa: ' . $e->getMessage());
         }
 
         return redirect()->route('misa.index');

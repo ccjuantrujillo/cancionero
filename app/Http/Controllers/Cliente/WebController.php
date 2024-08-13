@@ -17,7 +17,7 @@ class WebController extends Controller
 
     public function lecturas ()
     {
-        $misa = Misa::with([
+        $misas = Misa::with([
                     'lecturas' => function ($query) {
                             $query->select("MISAP_Codigo", "TIPOLECP_Codigo", "LECTC_Titulo", "LECTC_Descripcion")
                                     ->with([
@@ -30,11 +30,17 @@ class WebController extends Controller
                     ->whereHas('lecturas', function ($query) {
                         return $query->whereNotNull('LECTP_Codigo');
                     })
-                    ->orderBy('MISAC_Fecha', 'desc')
-                    ->first();
+                    ->orderBy('MISAC_Fecha', 'desc');
+
+        // The last misa
+        $ult_misa = $misas->first();
+
+        // Five last misa
+        $five_misas = $misas->take(5)->get();
 
         return view('cliente.lecturas')
-                ->with('misa', $misa);
+                ->with('misa', $ult_misa)
+                ->with('five_misas', $five_misas);
     }
 
     public function cancionero ()
