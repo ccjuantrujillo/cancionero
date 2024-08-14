@@ -8,7 +8,11 @@ $(function(){
         $.get(url, '', function(data){
 
             fila = '<tr class="text-center">';
-            fila += '<td scope="row">' + ( index + 1 ) + '</td>';
+            fila += '<td scope="row">';
+            fila += '<a href="#" onclick="eliminar_categoriacancion('+ index +')">';
+            fila += '<img src="/images/icons/delete-mod.png" alt="Eliminar" class="brand-image elevation-3">';
+            fila += '</a>';
+            fila += '</td>';
             fila += '<td scope="row">';
             fila += '<select class="form-control" id="cancionero['+ index +']" name="cancionero['+ index +']" onchange="seleccionar_cancionero('+ index +')">';
             fila += '<option value="">::Seleccione::</option>';
@@ -24,7 +28,10 @@ $(function(){
             fila += '<option value="">::Seleccione::</option>';
             fila += '</select>';
             fila += '</td>';
-            fila += '<td scope="row"><input type="text" name="orden['+ index +']" id="orden['+ index +']" class="form-control" /></td>';           
+            fila += '<td scope="row">';
+            fila += '<input type="text" name="orden['+ index +']" id="orden['+ index +']" class="form-control" />';
+            fila += '<input type="hidden" name="categoriacancion['+ index +']" id="categoriacancion['+ index +']" class="form-control" />';
+            fila += '</td>';           
             fila += '</tr>';
             $('#tbl_cancioneros tbody').append(fila);
             
@@ -62,4 +69,16 @@ function seleccionar_cancionero (index) {
         document.getElementById(orden).value = data.maximo;
     });
     
+}
+
+function eliminar_categoriacancion (index) {
+    var a   = 'categoriacancion['+ index +']';
+    var categoriacancion = document.getElementById(a).value;
+    var url = '/categoriacancion/eliminar-categoriacancion/' + categoriacancion;
+    
+    $.get(url, '', function (data) {
+        if (data.success) {
+            location.reload();
+        }
+    });
 }

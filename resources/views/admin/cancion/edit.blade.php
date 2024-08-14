@@ -17,7 +17,8 @@
 <!-- Content Body -->
 <section class="content">
     <div class="grid-hor">
-     {!!Form::model($cancion, ['route'=>['cancion.update', $cancion->CANCP_Codigo],'method'=>'PATCH', 'class'=>'col-sm-10'])!!}
+
+     {!!Form::model($cancion, ['route'=>['cancion.update', $cancion->CANCP_Codigo],'method'=>'PATCH', 'class'=>'col-sm-10', 'name' => 'frmCancion'])!!}
             {{ method_field('PATCH') }}
             @csrf     
 
@@ -39,7 +40,7 @@
                 <table class="table table-bordered table-hover" id="tbl_cancioneros">
                     <thead>
                       <tr class="text-center  bg-white">
-                        <th scope="col">Item</th>
+                        <th scope="col">Acción</th>
                         <th scope="col">Cancionero</th>
                         <th scope="col">Categoria</th>
                         <th scope="col">Orden</th>
@@ -51,10 +52,14 @@
 
                             <tr class="text-center">
 
-                                <td scope="row">{{ $item + 1 }}</td>
+                                <td scope="row mb-0">
+                                    <a href="#" onclick="eliminar_categoriacancion({{ $item }});">
+                                        <img src="{{ asset('/images/icons/delete-mod.png') }}" alt="Eliminar" class="brand-image elevation-3">
+                                    </a>
+                                </td>
 
                                 <td scope="row">
-                                    <select class="form-control" id="cancionero[]" name="cancionero[]">
+                                    <select class="form-control" id="cancionero[{{ $item }}]" name="cancionero[{{ $item }}]" onchange="seleccionar_cancionero({{ $item }})">
                                         @foreach (getCompanias() as $compania)
                                             <option value="{{ $compania->COMPP_Codigo }}" 
                                                 @if($value->COMPP_Codigo == $compania->COMPP_Codigo)
@@ -66,7 +71,7 @@
                                 </td>
 
                                 <td scope="row">
-                                    <select class="form-control" id="categoria[]" name="categoria[]">
+                                    <select class="form-control" id="categoria[{{ $item }}]" name="categoria[{{ $item }}]">
                                         @foreach (getCategorias($value->COMPP_Codigo) as $categoria)
                                             <option value="{{ $categoria->CATEGP_Codigo }}"
                                                 @if($value->CATEGP_Codigo == $categoria->CATEGP_Codigo)
@@ -78,7 +83,8 @@
                                 </td>
 
                                 <td scope="row">
-                                    <input type="text" name="orden[]" id="orden[]" class="form-control" value="{{ $value->CATEGCANCC_Orden }}" />
+                                    <input type="text" name="orden[{{ $item }}]" id="orden[{{ $item }}]" class="form-control" value="{{ $value->CATEGCANCC_Orden }}" />
+                                    <input type="hidden" name="categoriacancion[{{ $item }}]" id="categoriacancion[{{ $item }}]" class="form-control" value="{{ $value->CATEGCANCP_Codigo }}" />
                                 </td>
 
                             </tr>

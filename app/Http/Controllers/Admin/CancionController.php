@@ -102,7 +102,7 @@ class CancionController extends Controller
         $cancion = Cancion::where('CANCP_Codigo', $cancion_id)->first();
 		
         // Get CategoriasCancion
-        $companiacancion = Categoriacancion::join(
+        $categoriacancion = Categoriacancion::join(
                     'cancion','categoriacancion.CANCP_Codigo','=','cancion.CANCP_Codigo'
                 )->select('cancion.*','categoriacancion.*')
                 ->where([
@@ -118,7 +118,7 @@ class CancionController extends Controller
         
         return view("admin.cancion.edit", [
             'cancion'          => $cancion,
-            'companiacancion'  => $companiacancion,
+            'companiacancion'  => $categoriacancion,
             'categorias'       => $categorias,
         ]);
     }
@@ -160,11 +160,8 @@ class CancionController extends Controller
     {
         
         DB::beginTransaction();
-        
         Categoriacancion::where('CANCP_Codigo', $cancion_id)->delete();
-        
         Cancion::destroy($cancion_id);
-        
         DB::commit();
         
         return Redirect::to("/cancion/listar-canciones");
@@ -173,9 +170,8 @@ class CancionController extends Controller
     public function seleccionar_cancionero($cancionero_id)
     {
 
-        
         $categorias = getCategorias($cancionero_id);
-        
+
         $maximo = Categoriacancion::where([
                             ['COMPP_Codigo', '=', $cancionero_id],
                             ['CATEGCANCC_Orden', '<', 900],
@@ -186,6 +182,17 @@ class CancionController extends Controller
             'maximo'     => $maximo + 1
         ];
         
+    }
+
+    public function eliminar_categoriacancion ($categoriacancion_id)
+    {
+        $categoriacancion = Categoriacancion::where('CATEGCANCP_Codigo', $categoriacancion_id)->update([
+            'CATEGCANCC_FlagEstado' => 0
+        ]);
+        return response()->json([
+            'success' => true,
+            'data'    => $categoriacancion
+        ]);
     }
 
 }

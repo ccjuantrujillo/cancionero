@@ -35,6 +35,12 @@ Route::prefix('cancion')->name('cancion.')->group(function () {
     Route::delete('/eliminar-cancion/{cancion_id?}', [CancionController::class, 'destroy'])->name('destroy');
 });
 
+// Categoriacancion Admin
+Route::prefix('categoriacancion')->name('categoriacancion.')->group(function () {
+    Route::get('/listar/{codigo}', [CancionController::class, 'seleccionar_cancionero'])->name('seleccionar_cancionero');
+    Route::get('/eliminar-categoriacancion/{categoriacancion_id}', [CancionController::class, 'eliminar_categoriacancion'])->name('eliminar_categoriacancion');
+});
+
 // Categoria Admin
 Route::prefix('categoria')->name('categoria.')->group(function () {
     Route::get('/listar-categoria', [CategoriaController::class, 'index'])->name('index');
@@ -71,7 +77,6 @@ Route::prefix('lectura')->name('lectura.')->group(function () {
 
 // -------- Usuario -----------------//
 Route::resource('/usuario','Admin\UsuarioController');
-Route::get('/categoriacancion/listar/{codigo}', 'Admin\CancionController@seleccionar_cancionero');
 Route::post('/seleccionar-compania', [UsuarioController::class, 'seleccionarCompania'])->name('selecciona_compania.user');
 
 // -- Correos --- //
