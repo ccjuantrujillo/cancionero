@@ -63,6 +63,34 @@ class WebController extends Controller
                 ->with('canciones', $canciones);
     }
 
+    public function search_cancion (Request $request)
+    {
+
+        $compania_id = session('compania') ?? getCompaniaDefecto()->COMPP_Codigo;
+
+        $busqueda  = $request->busqueda;
+
+        $canciones = Categoriacancion::where('COMPP_Codigo', $compania_id)   
+                        ->with([
+                            'categoria' => function ($query) {
+                                $query->select('CATEGC_Descripcion', 'CATEGC_Orden', 'CATEGP_Codigo', 'CATEGC_DescripcionCorta');
+                            },
+                            'cancion' => function ($query) {
+                                $query->select('CANCP_Codigo', 'CANCC_Titulo', 'CANCC_Letra');
+                            }
+                        ])
+                        ->whereHas('cancion', function ($query) use ($busqueda) {
+                            return $query->where('CANCC_Titulo', 'like', '%' . $busqueda . '%');
+                        })
+                        ->where('CATEGCANCC_FlagEstado', 1)
+                        ->orderBy('CATEGCANCC_Orden', 'asc')
+                        ->get();
+
+        return view('cliente.cancionero')
+                ->with('canciones', $canciones);                        
+
+    }
+
     public function cancionero_detalle(Request $request)
     {
         $cancion_id = decrypt($request->cancion_id);

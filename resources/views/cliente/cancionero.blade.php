@@ -2,8 +2,9 @@
 
 @section('content')
 
-    <form method="post" id="frmBusqueda">
-      <input class="form-control mr-sm-2" type="search" placeholder="Buscar cancion" id="busqueda" name="busqueda" value="" autocomplete="off">
+    <form method="post" action ="{{ route('buscar_cancion') }}">
+      @csrf
+      <input class="form-control mr-sm-2" type="search" placeholder="Buscar cancion" id="busqueda" name="busqueda" autocomplete="off">
     </form> 
 
     @php $categoria_ini = 0; @endphp

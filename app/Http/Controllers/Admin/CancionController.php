@@ -25,7 +25,7 @@ class CancionController extends Controller
         return view('admin.cancion.index')->with('canciones',$canciones);
     }
 
-   public function list(Request $request)
+   /*public function list(Request $request)
    {
 
         $compania_id = session('compania');
@@ -38,7 +38,7 @@ class CancionController extends Controller
                 ->get();
         return response()->json($canciones);
             
-    } 
+    } */
     
     public function create(){
         

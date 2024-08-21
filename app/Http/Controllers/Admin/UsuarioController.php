@@ -107,10 +107,16 @@ class UsuarioController extends Controller
             Session::put('compania', $request->compania);
 
             // Save database
-            Compania::where('COMPC_FlagEstado', 1)->update(["COMPC_FlagDefecto"  => 0]);
-            Compania::where('COMPP_Codigo', $request->compania)->update(["COMPC_FlagDefecto" => 1]);
+            // Compania::where('COMPC_FlagEstado', 1)->update(["COMPC_FlagDefecto"  => 0]);
+            // Compania::where('COMPP_Codigo', $request->compania)->update(["COMPC_FlagDefecto" => 1]);
 
-            return Redirect::to($request->ruta_actual);
+            if ($request->ruta_actual != 'buscar-cancion') {
+                return Redirect::to($request->ruta_actual);
+            }
+            else {
+                return Redirect::to('/');
+            }
+
         }
         else {
             return Redirect::to('/');
