@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> 
 </head>
+
 <body>
 
   <!--Navbar-->
@@ -73,11 +74,9 @@
   <!--/ End Navbar-->
 
   <!--Pagina de contenido-->
-  <section class="container-fluid">
-    <div class="container">
+  <div class="container">
        @yield('content')  
-    </div>
-  </section>
+</div>
   <!--/Pagina de contenido-->
 
   @yield('modals')
@@ -86,5 +85,7 @@
   <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
+  @yield('scripts')
+  
 </body>
 </html>
