@@ -9,7 +9,7 @@
         </div>
         
         <div style="float:right;text-align:center;vertical-align:top;">
-            <a href="#" target="_blank"><img src="{{ asset('images/pdf_icon.png') }}" alt="Exportar PDF"/></a>
+            <!--a href="#" target="_blank"--><img src="{{ asset('images/pdf_icon.png') }}" alt="Exportar PDF"/><!--/a-->
         </div>		
     </div>
 

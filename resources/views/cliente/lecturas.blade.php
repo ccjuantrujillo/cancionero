@@ -11,14 +11,14 @@
         <h4 class="mt-3"><strong>{{ $misa->MISAC_Descripcion }}</strong></h4>
       </div>
 			<div class="col-lg-2 col-md-6 align-self-center">
-				<a href="lecturas.php?dia=<?php echo date("Ymd",strtotime('2024-07-21'."- 1 days"));?>"><<<</a>
-				<a href="lecturas.php?dia=<?php echo date("Ymd",strtotime('2024-07-21'."+ 1 days"));?>">>>></a>
+				<a href="#"><<<</a>
+				<a href="#">>>></a>
 		  </div>
     </div>
 
     <div>
 
-      <h4 class="mt-1">Venid a un lugar desierto a descansar</h4>		  
+      <h4 class="mt-1">{{ $misa->MISAC_Tema }}</h4>		  
       <p>Publicado el <?php echo date("j F, Y", strtotime($misa->MISAC_Fecha));?></p>
 
         <!-- Post Content -->
@@ -73,4 +73,8 @@
 
 </div>				
 
+@endsection
+
+@section('scripts')
+    <script src="{{asset('js/cliente/lecturas.js')}}"></script>
 @endsection

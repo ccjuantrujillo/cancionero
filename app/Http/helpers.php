@@ -31,7 +31,7 @@ if (!function_exists('getUserData'))
 if (!function_exists('getCompanias')) {
     function getCompanias()
     {
-        $companias = Compania::where('COMPC_FlagEstado', 1)->get();
+        $companias = Compania::where('COMPC_FlagEstado', 1)->orderBy('COMPC_Orden')->get();
         return $companias;
 
     }
