@@ -147,7 +147,9 @@ class MisaController extends Controller
                 ->join('categoria','categoria.CATEGP_Codigo','=','categoriacancion.CATEGP_Codigo')
                 ->select('cancion.*','categoriacancion.*')
                 ->where('categoriacancion.COMPP_Codigo', $compania_id)
+                ->where('categoriacancion.CATEGCANCC_FlagEstado', 1)
                 ->orderBy('categoriacancion.CATEGCANCC_Orden','asc')
+                ->orderBy('categoria.CATEGC_Orden','asc')
                 ->get();                  
         
         return view("admin.misa.edit", [

@@ -13,8 +13,8 @@
         </div-->
 
         <div style="float:right;text-align:right;vertical-align:top;font:18px arial, sans-serif;">
-            <a href="#" id="mostrar_ocultar">A</a>&nbsp;
-            <!--button name="accion" value="sgte" type="submit"> >>> </button-->
+            <a href="#" id="mostrar_ocultar">A</a>
+            <button name="accion" value="sgte" type="submit" class="btn btn-link"> >>> </button>
         </div>	
 
     {!! Form::close() !!}

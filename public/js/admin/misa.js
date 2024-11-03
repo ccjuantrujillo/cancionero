@@ -12,7 +12,6 @@ $(function(){
         $.ajax({
                 type : "POST",
                 url  : "/cancion/list",
-                //url:"/cancion/list",
                 data:"{}",
                 contentType:"application/json",
                 dataType:"json",

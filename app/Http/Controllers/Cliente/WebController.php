@@ -236,6 +236,9 @@ class WebController extends Controller
             if ( isset($cancion_sgte) && isset($cancion_sgte->categoria_cancion) ) {
                 $cancion_otra_id = $cancion_sgte->CANCP_Codigo;
             }
+            else {
+                $cancion_otra_id = $cancion_id;
+            }
 
         }
 

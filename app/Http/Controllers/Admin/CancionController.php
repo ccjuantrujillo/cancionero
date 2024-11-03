@@ -25,7 +25,7 @@ class CancionController extends Controller
         return view('admin.cancion.index')->with('canciones',$canciones);
     }
 
-   /*public function list(Request $request)
+   public function list(Request $request)
    {
 
         $compania_id = session('compania');
@@ -34,11 +34,14 @@ class CancionController extends Controller
                 ->join('categoria','categoria.CATEGP_Codigo','=','categoriacancion.CATEGP_Codigo')
                 ->select('cancion.*','categoriacancion.*','categoria.CATEGC_DescripcionCorta')
                 ->where('categoriacancion.COMPP_Codigo', $compania_id)
+                ->where('categoriacancion.CATEGCANCC_FlagEstado', 1)
                 ->orderBy('categoriacancion.CATEGCANCC_Orden','asc')
+                ->orderBy('categoria.CATEGC_Orden','asc')
                 ->get();
+
         return response()->json($canciones);
             
-    } */
+    } 
     
     public function create(){
         
