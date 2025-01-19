@@ -8,9 +8,9 @@
 
         {!! Form::hidden('cancion_id', request()->cancion_id ) !!}
 
-        <!--div style="float:left;text-align:left;vertical-align:top;font:18px arial, sans-serif;">
-            <button name="accion" value="atras" type="submit"> <<< </button>
-        </div-->
+        <div style="float:left;text-align:left;vertical-align:top;font:18px arial, sans-serif;">
+            <button name="accion" value="atras" type="submit" class="btn btn-link"> <<< </button>
+        </div>
 
         <div style="float:right;text-align:right;vertical-align:top;font:18px arial, sans-serif;">
             <a href="#" id="mostrar_ocultar">A</a>
