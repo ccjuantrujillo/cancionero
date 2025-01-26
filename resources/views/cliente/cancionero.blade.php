@@ -4,7 +4,7 @@
 
     <form method="post" action ="{{ route('buscar_cancion') }}">
       @csrf
-      <input class="form-control mr-sm-2" type="search" placeholder="Buscar cancion" id="busqueda" name="busqueda" autocomplete="off">
+      <input class="form-control mr-sm-2" type="search" placeholder="Buscar cancion" id="busqueda" name="busqueda" autocomplete="off" autofocus>
     </form> 
 
     @php $categoria_ini = 0; @endphp

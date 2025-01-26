@@ -80,7 +80,8 @@ class WebController extends Controller
                             }
                         ])
                         ->whereHas('cancion', function ($query) use ($busqueda) {
-                            return $query->where('CANCC_Titulo', 'like', '%' . $busqueda . '%');
+                            return $query->where('CANCC_Titulo', 'like', '%' . $busqueda . '%')
+                                        ->orWhere('CANCC_Letra', 'like', '%' . $busqueda . '%');
                         })
                         ->where('CATEGCANCC_FlagEstado', 1)
                         ->orderBy('CATEGCANCC_Orden', 'asc')

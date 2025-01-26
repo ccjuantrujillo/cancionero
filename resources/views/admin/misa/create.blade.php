@@ -18,9 +18,16 @@
 <section class="content">
     <div class="grid-hor">
         {!!Form::open(['route'=>'misa.store','method'=>'POST','class'=>'col-sm-10'])!!}
-            @include('admin.misa.forms.misa')
-            {!!Form::submit('Agregar',['class'=>'btn btn-info'])!!}
-            <a class="btn btn-danger" href="{{ route('misa.index') }}">Cancelar</a>
+
+            <div class="pb-4">
+                @include('admin.misa.forms.misa')
+            </div>
+
+            <div class="text-center">
+                {!!Form::submit('Agregar',['class'=>'btn btn-info'])!!}
+                <a class="btn btn-danger" href="{{ route('misa.index') }}">Cancelar</a>
+            </div>
+
         {!!Form::close()!!}
     </div>
 </section>

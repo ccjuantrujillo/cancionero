@@ -35,7 +35,7 @@ $(function(){
                         
                         option+= "<option value='"+value.CATEGCANCP_Codigo+"'>"+value.CATEGCANCC_Orden+" - " + value.CANCC_Titulo + "</option>";
                     });
-                    selector  = "<select class='form-control form-control-sm' name='categ_"+id+"[]'>"+option+"</select>";					
+                    selector  = "<select class='form-control' name='categ_"+id+"[]'>"+option+"</select>";					
                     $(".canciones_"+id).append(selector);			
                 },
                 error:function(){

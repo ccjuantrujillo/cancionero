@@ -20,9 +20,16 @@
         {!!Form::model($misa, ['route'=>['misa.update', $misa->MISAP_Codigo],'method'=>'PATCH', 'class'=>'col-sm-10'])!!}
             {{ method_field('PATCH') }}
             @csrf
-            @include('admin.misa.forms.misa')
-            {!!Form::submit('Editar',['class'=>'btn btn-info'])!!}
-            <a class="btn btn-danger" href="{{ route('misa.index') }}">Cancelar</a>
+
+            <div class="pb-4">
+                @include('admin.misa.forms.misa')
+            </div>
+
+            <div class="text-center">
+                {!!Form::submit('Editar',['class'=>'btn btn-info'])!!}
+                <a class="btn btn-danger" href="{{ route('misa.index') }}">Cancelar</a>
+            </div>
+
         {!!Form::close()!!}
     </div>
 </section>

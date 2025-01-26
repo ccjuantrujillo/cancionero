@@ -50,8 +50,10 @@ class MisaController extends Controller
         $ritos = Rito::orderBy('RITOC_Orden')->get();
         
         $canciones = Categoriacancion::join('cancion','categoriacancion.CANCP_Codigo','=','cancion.CANCP_Codigo')
-                ->select('cancion.*','categoriacancion.*')
+                ->join('categoria', 'categoriacancion.CATEGP_Codigo', '=','categoria.CATEGP_Codigo')
+                ->select('cancion.*','categoriacancion.*', 'categoria.CATEGC_DescripcionCorta')
                 ->where('categoriacancion.COMPP_Codigo', $compania_id)
+                ->where('categoriacancion.CATEGCANCC_FlagEstado', 1)
                 ->orderBy('categoriacancion.CATEGCANCC_Orden','asc')
                 ->get();
         

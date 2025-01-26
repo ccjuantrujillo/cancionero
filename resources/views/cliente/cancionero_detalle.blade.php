@@ -2,8 +2,6 @@
 
 @section('content')
 
-<div class="container">
-
     {!! Form::open( ['route' => 'cambiar_cancion', 'method' => 'POST'] ) !!}
 
         {!! Form::hidden('cancion_id', request()->cancion_id ) !!}
@@ -28,8 +26,6 @@
     <div>
         {!! html_entity_decode(html_entity_decode($cancion->CANCC_Letra)) !!}
     </div>
-
-</div>
 
 @endsection
 
