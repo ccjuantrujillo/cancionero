@@ -9,7 +9,8 @@ use App\Http\Controllers\Admin\UsuarioController;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\LecturaController;
 
-Auth::routes();
+// Rutas Authentication
+Auth::routes(['register' => false]);
 
 // Web Controller
 Route::get('/lecturas', [WebController::class, 'lecturas'])->name('lecturas');
