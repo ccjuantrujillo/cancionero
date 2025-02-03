@@ -54,9 +54,7 @@
               <p class="mb-1">
                 <a href="{{ route('password.request') }}">{{ __('Olvido su contraseña') }}</a>
               </p>
-              <p class="mb-0">
-                <a href="{{ route('register') }}" class="text-center">{{ __('Registrar un nuevo miembro') }}</a>
-              </p>
+
             </div>
             <!-- /.login-card-body -->
           </div>
