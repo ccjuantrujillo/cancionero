@@ -1,0 +1,4 @@
+
+import 'admin-lte';
+import 'admin-lte/dist/js/adminlte.min.js';
+import 'admin-lte/dist/css/adminlte.min.css';

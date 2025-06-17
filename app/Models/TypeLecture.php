@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Church extends Model
+class TypeLecture extends Model
 {
-    protected $table = 'churches';
-    
+    protected $table = 'type_lectures';
+
     protected  $fillable = [
         'descripcion',
-        'estado',
+        'orden',
     ];
 }

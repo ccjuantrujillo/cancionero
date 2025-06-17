@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\ColeccionController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Web Controller
