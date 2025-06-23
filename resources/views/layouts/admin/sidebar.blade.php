@@ -70,7 +70,35 @@
                   <i class="nav-icon bi bi-patch-check-fill"></i>
                   <p>Usuarios</p>
                 </a>
-              </li>              
+              </li>     
+              
+              @can('web.inicio')
+                <li class="nav-item">
+                  <a href="{{ route('web.inicio') }}" class="nav-link">
+                    <i class="nav-icon bi bi-patch-check-fill"></i>
+                    <p>Inicio</p>
+                  </a>
+                </li> 
+              @endcan   
+              
+              @can('web.quienes')
+                <li class="nav-item">
+                  <a href="{{ route('web.quienes') }}" class="nav-link">
+                    <i class="nav-icon bi bi-patch-check-fill"></i>
+                    <p>Quines</p>
+                  </a>
+                </li>
+              @endcan      
+              
+              @can('web.nosotros')
+                <li class="nav-item">
+                  <a href="{{ route('web.nosotros') }}" class="nav-link">
+                    <i class="nav-icon bi bi-patch-check-fill"></i>
+                    <p>Nosotros</p>
+                  </a>
+                </li>    
+              @endcan 
+              
             </ul>
             <!--end::Sidebar Menu-->
           </nav>
