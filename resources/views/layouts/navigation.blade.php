@@ -16,23 +16,23 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    @can('web.inicio')
-                        <x-nav-link :href="route('web.inicio')" :active="request()->routeIs('web.inicio')">
+                
+                        <x-nav-link :href="route('admin.web.inicio')" :active="request()->routeIs('admin.web.inicio')">
                             Inicio
                         </x-nav-link>
-                    @endcan
+        
 
-                    @can('web.quienes')
-                        <x-nav-link :href="route('web.quienes')" :active="request()->routeIs('web.quienes')">
+             
+                        <x-nav-link :href="route('admin.web.quienes')" :active="request()->routeIs('admin.web.quienes')">
                             Quienes
                         </x-nav-link>
-                    @endcan
+          
 
-                    @can('web.nosotros')
-                        <x-nav-link :href="route('web.nosotros')" :active="request()->routeIs('web.nosotros')">
+               
+                        <x-nav-link :href="route('admin.web.nosotros')" :active="request()->routeIs('admin.web.nosotros')">
                             Nosotros
                         </x-nav-link>
-                    @endcan                    
+                              
 
                 </div>
             </div>
@@ -53,7 +53,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('admin.profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
@@ -99,7 +99,7 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
+                <x-responsive-nav-link :href="route('admin.profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 

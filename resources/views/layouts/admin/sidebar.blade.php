@@ -72,27 +72,27 @@
                 </a>
               </li>     
               
-              @can('web.inicio')
+              @can('admin.web.inicio')
                 <li class="nav-item">
-                  <a href="{{ route('web.inicio') }}" class="nav-link">
+                  <a href="{{ route('admin.web.inicio') }}" class="nav-link">
                     <i class="nav-icon bi bi-patch-check-fill"></i>
                     <p>Inicio</p>
                   </a>
                 </li> 
               @endcan   
               
-              @can('web.quienes')
+              @can('admin.web.quienes')
                 <li class="nav-item">
-                  <a href="{{ route('web.quienes') }}" class="nav-link">
+                  <a href="{{ route('admin.web.quienes') }}" class="nav-link">
                     <i class="nav-icon bi bi-patch-check-fill"></i>
                     <p>Quines</p>
                   </a>
                 </li>
               @endcan      
               
-              @can('web.nosotros')
+              @can('admin.web.nosotros')
                 <li class="nav-item">
-                  <a href="{{ route('web.nosotros') }}" class="nav-link">
+                  <a href="{{ route('admin.web.nosotros') }}" class="nav-link">
                     <i class="nav-icon bi bi-patch-check-fill"></i>
                     <p>Nosotros</p>
                   </a>

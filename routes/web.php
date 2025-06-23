@@ -22,7 +22,7 @@ Route::post('/buscar-cancion', [WebController::class, 'search_cancion'])->name('
 //Route::post('/cambiar-cancion/{cancion_id?}', [WebController::class, 'cambiar_cancion'])->name('cambiar_cancion');
 //Route::post('/cambiar-cancion-misa/{categoriacancion_id?}', [WebController::class, 'cambiar_cancion_misa'])->name('cambiar_cancion_misa');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
